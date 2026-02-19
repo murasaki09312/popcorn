@@ -2,6 +2,7 @@ require "application_system_test_case"
 
 class AdminAuthenticationTest < ApplicationSystemTestCase
   setup do
+    User.where(email_address: "admin@example.com").delete_all
     User.create!(email_address: "admin@example.com", password: "password")
   end
 
