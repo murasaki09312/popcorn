@@ -16,7 +16,11 @@ FileUtils.chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   # Install JavaScript dependencies
-  system("yarn install --check-files")
+  if File.exist?("package-lock.json")
+    system!("npm ci")
+  else
+    system!("npm install")
+  end
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")

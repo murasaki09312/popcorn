@@ -11,6 +11,9 @@
 /.env*
 !.env.example
 
+# Keep credentials encrypted file in repo but never commit master key
+/config/master.key
+
 # Ignore node modules
 /node_modules
 
