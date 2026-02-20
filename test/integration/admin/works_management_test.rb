@@ -61,6 +61,24 @@ class Admin::WorksManagementTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_works_url
   end
 
+  test "authenticated user cannot create a work with unsafe video_url scheme" do
+    sign_in_as(@user)
+
+    assert_no_difference("Work.count") do
+      post admin_works_url, params: {
+        work: {
+          title: "Unsafe Work",
+          video_url: "javascript:alert(1)",
+          tags: "#animation",
+          description: "sample description"
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+    assert_includes response.body, "must be a valid HTTP or HTTPS URL"
+  end
+
   private
     def sign_in_as(user)
       post session_url, params: { email_address: user.email_address, password: "password" }
