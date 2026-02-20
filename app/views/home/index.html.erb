@@ -13,16 +13,96 @@
   </header>
 
   <main class="mx-auto max-w-6xl space-y-16 px-6 py-10">
-    <section id="works" class="space-y-5">
+    <section
+      id="works"
+      class="space-y-5"
+      data-controller="video-modal"
+      data-action="keydown.esc@window->video-modal#closeWithKeyboard"
+    >
       <h1 class="text-3xl font-bold tracking-wide">works</h1>
       <div class="grid gap-4 md:grid-cols-3">
-        <% 3.times do |index| %>
+        <% @works.each do |work| %>
           <article class="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
-            <div class="mb-3 aspect-video rounded-lg bg-zinc-900"></div>
-            <p class="text-sm text-zinc-300">Work <%= index + 1 %></p>
-            <p class="mt-1 text-xs text-zinc-500">#animation #trackmake #soundeffect</p>
+            <button
+              type="button"
+              class="w-full text-left"
+              data-action="video-modal#open"
+              data-video-modal-url-param="<%= work.video_url.to_s %>"
+              data-video-modal-title-param="<%= work.title.to_s %>"
+              data-video-modal-tags-param="<%= work.tags.to_s %>"
+              data-video-modal-description-param="<%= work.description.to_s %>"
+              aria-haspopup="dialog"
+            >
+              <div class="mb-3 aspect-video overflow-hidden rounded-lg bg-zinc-900">
+                <% if work.thumbnail.attached? %>
+                  <%= image_tag work.thumbnail.variant(resize_to_limit: [800, 450]), class: "h-full w-full object-cover" %>
+                <% else %>
+                  <div class="flex h-full w-full items-center justify-center text-xs text-zinc-500">No Image</div>
+                <% end %>
+              </div>
+              <p class="text-sm text-zinc-300"><%= work.title %></p>
+              <p class="mt-1 text-xs text-zinc-500"><%= work.tags.presence || "-" %></p>
+            </button>
           </article>
         <% end %>
+      </div>
+      <% if @works.empty? %>
+        <p class="rounded-xl border border-zinc-800 bg-zinc-950 p-4 text-sm text-zinc-500">作品がまだ登録されていません。</p>
+      <% end %>
+
+      <div
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 p-4 sm:p-6"
+        data-video-modal-target="overlay"
+        data-action="click->video-modal#closeFromBackdrop"
+      >
+        <div
+          class="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-950"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="work-modal-title"
+          data-action="click->video-modal#stopPropagation"
+        >
+          <button
+            type="button"
+            class="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-600 bg-zinc-900/90 text-lg text-zinc-200 hover:bg-zinc-800"
+            data-action="video-modal#close"
+            aria-label="モーダルを閉じる"
+          >
+            ×
+          </button>
+
+          <div class="grid gap-4 p-4 md:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] md:gap-6 md:p-6">
+            <div class="space-y-3">
+              <div class="aspect-video overflow-hidden rounded-lg border border-zinc-800 bg-black">
+                <video class="h-full w-full" controls playsinline data-video-modal-target="videoPlayer"></video>
+                <iframe
+                  class="hidden h-full w-full"
+                  data-video-modal-target="iframePlayer"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+                <div class="hidden h-full w-full items-center justify-center px-4 text-sm text-zinc-400" data-video-modal-target="fallback">
+                  <p>
+                    動画を埋め込み表示できません。
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline decoration-zinc-500 hover:text-white"
+                      data-video-modal-target="fallbackLink"
+                    >元動画を開く</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="max-h-[55vh] space-y-3 overflow-y-auto pr-1 text-sm md:max-h-[70vh]">
+              <p id="work-modal-title" class="text-lg font-semibold text-zinc-100" data-video-modal-target="title"></p>
+              <p class="text-xs text-zinc-400" data-video-modal-target="tags"></p>
+              <p class="whitespace-pre-wrap leading-relaxed text-zinc-300" data-video-modal-target="description"></p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
