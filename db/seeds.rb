@@ -15,7 +15,12 @@ else
   ENV.fetch("ADMIN_PASSWORD", "password")
 end
 
-User.find_or_create_by!(email_address: admin_email) do |user|
-  user.password = admin_password
-  user.password_confirmation = admin_password
+admin = User.find_or_initialize_by(email_address: admin_email)
+
+if admin.new_record?
+  admin.password = admin_password
+  admin.password_confirmation = admin_password
+  admin.save!
+elsif ENV.fetch("ADMIN_RESET_PASSWORD_ON_SEED", "0") == "1"
+  admin.update!(password: admin_password, password_confirmation: admin_password)
 end
