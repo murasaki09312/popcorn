@@ -27,5 +27,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "data-action=\"video-modal#open\""
     assert_includes response.body, "data-video-modal-url-param=\"https://example.com/demo.mp4\""
     assert_includes response.body, "data-video-modal-target=\"overlay\""
+    assert_includes response.body, "/rails/active_storage/blobs/redirect/"
+    assert_not_includes response.body, "/rails/active_storage/representations/redirect/"
   end
 end

@@ -35,7 +35,7 @@
             >
               <div class="mb-3 aspect-video overflow-hidden rounded-lg bg-zinc-900">
                 <% if work.thumbnail.attached? %>
-                  <%= image_tag work.thumbnail.variant(resize_to_limit: [800, 450]), class: "h-full w-full object-cover" %>
+                  <%= image_tag work.thumbnail, class: "h-full w-full object-cover" %>
                 <% else %>
                   <div class="flex h-full w-full items-center justify-center text-xs text-zinc-500">No Image</div>
                 <% end %>
