@@ -27,6 +27,11 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "data-action=\"video-modal#open\""
     assert_includes response.body, "data-video-modal-url-param=\"https://example.com/demo.mp4\""
     assert_includes response.body, "data-video-modal-target=\"overlay\""
+    assert_includes response.body, "aria-controls=\"works-video-modal\""
+    assert_includes response.body, "aria-expanded=\"false\""
+    assert_includes response.body, "role=\"dialog\""
+    assert_includes response.body, "id=\"works-video-modal\""
+    assert_includes response.body, "aria-hidden=\"true\""
     assert_includes response.body, "/rails/active_storage/blobs/redirect/"
     assert_not_includes response.body, "/rails/active_storage/representations/redirect/"
   end
