@@ -5,7 +5,7 @@ Redisは使用しません。
 
 ## 技術スタック
 
-- Ruby `3.2.2` (`.ruby-version`)
+- Ruby `3.3.10` (`.ruby-version`)
 - Rails `8.1.2`
 - SQLite3
 - Hotwire (`turbo-rails`, `stimulus-rails`)
@@ -14,7 +14,7 @@ Redisは使用しません。
 
 ## 前提
 
-- Ruby `3.2.2`
+- Ruby `3.3.10`
 - Bundler `2.4.x` 以上
 - Node.js `25.2.1` (`.node-version`)
 - npm `11.x` 以上
