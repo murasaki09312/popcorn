@@ -3,8 +3,9 @@ class HomeController < ApplicationController
 
   def index
     @works = Work.with_attached_thumbnail.order(created_at: :desc)
-    @line_url = ENV.fetch("SITE_LINE_URL", "#")
-    @instagram_url = ENV.fetch("SITE_INSTAGRAM_URL", "#")
-    @youtube_url = ENV.fetch("SITE_YOUTUBE_URL", "#")
+    @site_setting = SiteSetting.instance
+    @line_url = @site_setting.safe_external_url(:line_url)
+    @instagram_url = @site_setting.safe_external_url(:instagram_url)
+    @youtube_url = @site_setting.safe_external_url(:youtube_url)
   end
 end

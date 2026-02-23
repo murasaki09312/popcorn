@@ -1,56 +1,50 @@
-<div class="min-h-screen bg-black text-zinc-100">
-  <div class="mx-auto max-w-4xl space-y-6 px-6 py-8">
-    <header class="flex flex-wrap items-start justify-between gap-3 border-b border-zinc-800 pb-4">
+<section class="space-y-5">
+  <header class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <p class="text-[0.7rem] uppercase tracking-[0.13em] text-muted">Admin CMS</p>
+      <h1 class="mt-1 font-serif text-[1.9rem] leading-none tracking-[0.05em] text-foreground-strong"><%= @work.title %></h1>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= link_to "一覧へ戻る", admin_works_path, class: "admin-btn admin-btn-secondary focus-ring" %>
+      <%= link_to "編集", edit_admin_work_path(@work), class: "admin-btn admin-btn-primary focus-ring" %>
+    </div>
+  </header>
+
+  <section class="admin-card grid gap-6 p-5 sm:p-6 lg:grid-cols-2">
+    <div class="space-y-3">
+      <h2 class="text-[0.73rem] uppercase tracking-[0.12em] text-subtle">Thumbnail</h2>
+      <% if @work.thumbnail.attached? %>
+        <%= image_tag @work.thumbnail.variant(resize_to_limit: [900, 506]), class: "aspect-video w-full rounded-xl object-cover", alt: "#{@work.title} thumbnail", loading: "lazy", decoding: "async" %>
+      <% else %>
+        <div class="flex aspect-video items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">
+          サムネイル未設定
+        </div>
+      <% end %>
+    </div>
+
+    <dl class="space-y-4 text-sm">
       <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-zinc-500">Admin</p>
-        <h1 class="mt-1 text-2xl font-bold tracking-wide"><%= @work.title %></h1>
+        <dt class="text-subtle">Title</dt>
+        <dd class="mt-1 text-foreground-strong"><%= @work.title %></dd>
       </div>
-      <div class="flex items-center gap-2">
-        <%= link_to "一覧へ戻る", admin_works_path, class: "inline-flex items-center rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800" %>
-        <%= link_to "編集", edit_admin_work_path(@work), class: "inline-flex items-center rounded-md bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-white" %>
+      <div>
+        <dt class="text-subtle">Video URL</dt>
+        <dd class="mt-1 break-all text-foreground">
+          <% if @work.video_url.present? %>
+            <a href="<%= @work.video_url %>" target="_blank" rel="noopener noreferrer" class="underline decoration-line-strong underline-offset-2 hover:text-foreground-strong"><%= @work.video_url %></a>
+          <% else %>
+            -
+          <% end %>
+        </dd>
       </div>
-    </header>
-
-    <% if notice.present? %>
-      <p class="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-200"><%= notice %></p>
-    <% end %>
-
-    <section class="grid gap-6 rounded-xl border border-zinc-800 bg-zinc-950 p-6 md:grid-cols-2">
-      <div class="space-y-4">
-        <h2 class="text-sm font-medium uppercase tracking-wide text-zinc-400">Thumbnail</h2>
-        <% if @work.thumbnail.attached? %>
-          <%= image_tag @work.thumbnail, class: "aspect-video w-full rounded-lg object-cover" %>
-        <% else %>
-          <div class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-zinc-700 bg-zinc-900 text-sm text-zinc-500">
-            サムネイル未設定
-          </div>
-        <% end %>
+      <div>
+        <dt class="text-subtle">Tags</dt>
+        <dd class="mt-1 text-foreground"><%= @work.tags.presence || "-" %></dd>
       </div>
-
-      <dl class="space-y-4 text-sm">
-        <div>
-          <dt class="text-zinc-400">Title</dt>
-          <dd class="mt-1 text-zinc-100"><%= @work.title %></dd>
-        </div>
-        <div>
-          <dt class="text-zinc-400">Video URL</dt>
-          <dd class="mt-1 break-all text-zinc-200">
-            <% if @work.video_url.present? %>
-              <a href="<%= @work.video_url %>" target="_blank" rel="noopener noreferrer" class="underline decoration-zinc-500 hover:text-white"><%= @work.video_url %></a>
-            <% else %>
-              -
-            <% end %>
-          </dd>
-        </div>
-        <div>
-          <dt class="text-zinc-400">Tags</dt>
-          <dd class="mt-1 text-zinc-200"><%= @work.tags.presence || "-" %></dd>
-        </div>
-        <div>
-          <dt class="text-zinc-400">Description</dt>
-          <dd class="mt-1 whitespace-pre-wrap leading-relaxed text-zinc-200"><%= @work.description.presence || "-" %></dd>
-        </div>
-      </dl>
-    </section>
-  </div>
-</div>
+      <div>
+        <dt class="text-subtle">Description</dt>
+        <dd class="mt-1 whitespace-pre-wrap leading-relaxed text-foreground"><%= @work.description.presence || "-" %></dd>
+      </div>
+    </dl>
+  </section>
+</section>

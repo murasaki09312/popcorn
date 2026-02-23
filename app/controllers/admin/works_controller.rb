@@ -1,6 +1,5 @@
 module Admin
-  class WorksController < ApplicationController
-    before_action :require_authentication
+  class WorksController < BaseController
     before_action :set_work, only: %i[show edit update destroy]
 
     def index

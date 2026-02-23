@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   namespace :admin do
+    root "works#index"
     resources :works
+    resource :site_setting, only: %i[edit update], path: "site_settings"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
