@@ -14,12 +14,11 @@ class SiteSetting < ApplicationRecord
   validates :contact_text, presence: true
   validates :singleton_guard, inclusion: { in: [ 0 ] }
   validate :validate_external_urls
-  validate :single_record_limit, on: :create
 
   before_validation :set_singleton_guard
 
   def self.instance
-    first_or_create! do |setting|
+    create_or_find_by!(singleton_guard: 0) do |setting|
       setting.about_text = DEFAULT_ABOUT_TEXT
       setting.contact_text = DEFAULT_CONTACT_TEXT
     end
@@ -36,12 +35,6 @@ class SiteSetting < ApplicationRecord
   private
     def set_singleton_guard
       self.singleton_guard = 0
-    end
-
-    def single_record_limit
-      return unless self.class.where.not(id: id).exists?
-
-      errors.add(:base, "Site settings can only have one record")
     end
 
     def validate_external_urls

@@ -21,9 +21,9 @@ class SiteSettingTest < ActiveSupport::TestCase
 
   test "prevents creating a second record" do
     SiteSetting.instance
-    second = SiteSetting.new(about_text: "x", contact_text: "y")
 
-    assert_not second.valid?
-    assert_includes second.errors[:base], "Site settings can only have one record"
+    assert_raises ActiveRecord::RecordNotUnique do
+      SiteSetting.create!(about_text: "x", contact_text: "y")
+    end
   end
 end
