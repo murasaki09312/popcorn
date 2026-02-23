@@ -1,13 +1,13 @@
-<div class="min-h-screen bg-black text-zinc-100">
-  <header class="border-b border-zinc-800">
+<div class="min-h-screen bg-[#F6F1EC] text-[#4A3F39]">
+  <header class="border-b border-[#E5D8D0] bg-[#F6F1EC]/95">
     <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-xl font-bold tracking-[0.2em]">popcorn</p>
       <nav aria-label="main navigation" class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm sm:justify-end">
-        <a href="#works" class="hover:text-white/80">works</a>
-        <a href="#about" class="hover:text-white/80">about</a>
-        <a href="#contact" class="hover:text-white/80">contact</a>
-        <a href="<%= @instagram_url %>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-zinc-200">Instagram</a>
-        <a href="<%= @youtube_url %>" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-zinc-200">YouTube</a>
+        <a href="#works" class="transition hover:text-[#2F2722]">works</a>
+        <a href="#about" class="transition hover:text-[#2F2722]">about</a>
+        <a href="#contact" class="transition hover:text-[#2F2722]">contact</a>
+        <a href="<%= @instagram_url %>" target="_blank" rel="noopener noreferrer" class="text-[#8B7C73] transition hover:text-[#4A3F39]">Instagram</a>
+        <a href="<%= @youtube_url %>" target="_blank" rel="noopener noreferrer" class="text-[#8B7C73] transition hover:text-[#4A3F39]">YouTube</a>
       </nav>
     </div>
   </header>
@@ -19,13 +19,14 @@
       data-controller="video-modal"
       data-action="keydown.esc@window->video-modal#closeWithKeyboard"
     >
-      <h1 class="text-3xl font-bold tracking-wide">works</h1>
-      <div class="grid gap-4 md:grid-cols-3">
-        <% @works.each do |work| %>
-          <article class="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
+      <h1 class="text-3xl font-bold tracking-wide text-[#413631]">works</h1>
+      <div class="grid gap-5 md:grid-cols-3">
+        <% @works.each_with_index do |work, index| %>
+          <article>
             <button
               type="button"
-              class="w-full rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-300"
+              class="group w-full rounded-2xl border border-[#E6D9D2] bg-white p-4 text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8D7A72] animate-fade-in-up"
+              style="animation-delay: <%= index * 150 %>ms;"
               data-action="video-modal#open"
               data-video-modal-url-param="<%= work.video_url.to_s %>"
               data-video-modal-title-param="<%= work.title.to_s %>"
@@ -35,32 +36,33 @@
               aria-controls="works-video-modal"
               aria-expanded="false"
             >
-              <div class="mb-3 aspect-video overflow-hidden rounded-lg bg-zinc-900">
+              <div class="relative mb-3 aspect-[4/3] overflow-hidden rounded-xl bg-stone-100">
                 <% if work.thumbnail.attached? %>
-                  <%= image_tag work.thumbnail, alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async", class: "h-full w-full object-cover" %>
+                  <%= image_tag work.thumbnail, alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async", class: "h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105" %>
                 <% else %>
-                  <div class="flex h-full w-full items-center justify-center text-xs text-zinc-500">No Image</div>
+                  <div class="h-full w-full bg-stone-200"></div>
                 <% end %>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#D4A5A0]/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 mix-blend-multiply"></div>
               </div>
-              <p class="text-sm text-zinc-300"><%= work.title %></p>
-              <p class="mt-1 text-xs text-zinc-500"><%= work.tags.presence || "-" %></p>
+              <p class="text-sm font-medium text-[#453A35]"><%= work.title %></p>
+              <p class="mt-1 text-xs text-[#8C7E76]"><%= work.tags.presence || "-" %></p>
             </button>
           </article>
         <% end %>
       </div>
       <% if @works.empty? %>
-        <p class="rounded-xl border border-zinc-800 bg-zinc-950 p-4 text-sm text-zinc-500">作品がまだ登録されていません。</p>
+        <p class="rounded-xl border border-[#E0D4CD] bg-white p-4 text-sm text-[#8C7E76]">作品がまだ登録されていません。</p>
       <% end %>
 
       <div
-        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 p-4 sm:p-6"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-[#2F2722]/55 p-4 backdrop-blur-[2px] sm:p-6"
         data-video-modal-target="overlay"
         data-action="click->video-modal#closeFromBackdrop"
         aria-hidden="true"
       >
         <div
           id="works-video-modal"
-          class="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-950"
+          class="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-[#E4D7D0] bg-[#FFFDFB]"
           role="dialog"
           aria-modal="true"
           aria-labelledby="work-modal-title"
@@ -70,7 +72,7 @@
         >
           <button
             type="button"
-            class="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-600 bg-zinc-900/90 text-lg text-zinc-200 hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-200"
+            class="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#D8C9C1] bg-white/90 text-lg text-[#5E4E46] transition hover:bg-[#F3ECE7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8D7A72]"
             data-action="video-modal#close"
             data-video-modal-target="closeButton"
             aria-label="モーダルを閉じる"
@@ -80,7 +82,7 @@
 
           <div class="grid gap-4 p-4 md:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] md:gap-6 md:p-6">
             <div class="space-y-3">
-              <div class="aspect-video overflow-hidden rounded-lg border border-zinc-800 bg-black">
+              <div class="aspect-video overflow-hidden rounded-2xl border border-[#E4D7D0] bg-stone-100">
                 <video class="h-full w-full" controls playsinline data-video-modal-target="videoPlayer"></video>
                 <iframe
                   class="hidden h-full w-full"
@@ -88,14 +90,14 @@
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen
                 ></iframe>
-                <div class="hidden h-full w-full items-center justify-center px-4 text-sm text-zinc-400" data-video-modal-target="fallback">
+                <div class="hidden h-full w-full items-center justify-center px-4 text-sm text-[#8C7E76]" data-video-modal-target="fallback">
                   <p>
                     動画を埋め込み表示できません。
                     <a
                       href="#"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="hidden underline decoration-zinc-500 hover:text-white"
+                      class="hidden underline decoration-[#B0998F] transition hover:text-[#4A3F39]"
                       data-video-modal-target="fallbackLink"
                     >元動画を開く</a>
                   </p>
@@ -104,21 +106,27 @@
             </div>
 
             <div class="max-h-[55vh] space-y-3 overflow-y-auto pr-1 text-sm md:max-h-[70vh]">
-              <p id="work-modal-title" class="text-lg font-semibold text-zinc-100" data-video-modal-target="title"></p>
-              <p class="text-xs text-zinc-400" data-video-modal-target="tags"></p>
-              <p class="whitespace-pre-wrap leading-relaxed text-zinc-300" data-video-modal-target="description"></p>
+              <p id="work-modal-title" class="text-lg font-semibold text-[#433833]" data-video-modal-target="title"></p>
+              <p class="text-xs text-[#8C7E76]" data-video-modal-target="tags"></p>
+              <p class="whitespace-pre-wrap leading-relaxed text-[#5A4D46]" data-video-modal-target="description"></p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="about" class="space-y-3">
-      <h2 class="text-2xl font-semibold tracking-wide">about</h2>
-      <p class="max-w-2xl leading-relaxed text-zinc-300">
-        トラックメイカーmiyuとアニメーションデザイナーhinからなる、クリエイティブユニット。
-        音と映像を軸に、MV・SNSコンテンツ・ブランドビジュアルを制作しています。
-      </p>
+    <section id="about" class="grid gap-6 md:grid-cols-[minmax(0,220px)_minmax(0,1fr)] md:items-center">
+      <div class="relative aspect-[3/4] overflow-hidden bg-[#E8DDD5] shadow-sm" style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;">
+        <%= image_tag "about-placeholder.svg", class: "h-full w-full object-cover", alt: "popcorn studio", loading: "lazy" %>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#D4A5A0]/20 via-transparent to-[#A8B7A1]/25"></div>
+      </div>
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-wide">about</h2>
+        <p class="max-w-2xl leading-relaxed text-[#5C4F48]">
+          トラックメイカーmiyuとアニメーションデザイナーhinからなる、クリエイティブユニット。
+          音と映像を軸に、MV・SNSコンテンツ・ブランドビジュアルを制作しています。
+        </p>
+      </div>
     </section>
 
     <section id="contact" class="space-y-4">
@@ -127,19 +135,19 @@
         href="<%= @line_url %>"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex rounded-md bg-emerald-400 px-5 py-2 font-semibold text-black transition hover:bg-emerald-300"
+        class="inline-flex rounded-md bg-[#A8B7A1] px-5 py-2 font-semibold text-[#2F2722] transition hover:bg-[#95A58F]"
       >
         contact(LINE)
       </a>
-      <p class="text-sm text-zinc-500">ご相談・ご依頼はLINEからお気軽にご連絡ください。</p>
+      <p class="text-sm text-[#8C7E76]">ご相談・ご依頼はLINEからお気軽にご連絡ください。</p>
     </section>
 
-    <section class="rounded-xl border border-zinc-800 bg-zinc-950 p-5" data-controller="toggle">
+    <section class="rounded-xl border border-[#E0D4CD] bg-white p-5" data-controller="toggle">
       <h2 class="text-lg font-semibold">Stimulus + TypeScript sample</h2>
-      <p class="mt-2 text-zinc-300" data-toggle-target="message">Turbo / Stimulus is ready.</p>
+      <p class="mt-2 text-[#665952]" data-toggle-target="message">Turbo / Stimulus is ready.</p>
       <button
         type="button"
-        class="mt-4 rounded bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-white"
+        class="mt-4 rounded bg-[#F1E9E3] px-4 py-2 text-sm font-medium text-[#4A3F39] transition hover:bg-[#EADFD7]"
         data-action="click->toggle#switch"
       >
         Toggle Text
@@ -147,7 +155,7 @@
     </section>
   </main>
 
-  <footer class="border-t border-zinc-800 px-6 py-6 text-center text-sm text-zinc-500">
+  <footer class="border-t border-[#E5D8D0] px-6 py-6 text-center text-sm text-[#8C7E76]">
     <%= "#{Time.current.year} popcorn studio.Co." %>
   </footer>
 </div>

@@ -1,0 +1,18 @@
+<svg width="720" height="960" viewBox="0 0 720 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="680" y2="920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EADFD7"/>
+      <stop offset="0.55" stop-color="#DDBEB8"/>
+      <stop offset="1" stop-color="#B8C6B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="960" fill="url(#bg)"/>
+  <circle cx="548" cy="200" r="136" fill="#F7F1ED" fill-opacity="0.55"/>
+  <circle cx="190" cy="736" r="165" fill="#F7F1ED" fill-opacity="0.45"/>
+  <path d="M145 602C145 448 251 332 360 332C469 332 575 448 575 602V960H145V602Z" fill="#F8F3EE" fill-opacity="0.8"/>
+  <circle cx="360" cy="260" r="112" fill="#F8F3EE" fill-opacity="0.86"/>
+  <rect x="240" y="764" width="240" height="18" rx="9" fill="#8F7B72" fill-opacity="0.6"/>
+  <text x="360" y="836" text-anchor="middle" fill="#4A3F39" fill-opacity="0.82" font-size="34" font-family="Georgia, serif" letter-spacing="6">
+    POPCORN
+  </text>
+</svg>
