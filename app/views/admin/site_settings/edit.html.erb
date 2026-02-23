@@ -48,7 +48,7 @@
         <div class="space-y-3 rounded-xl border border-line-soft bg-surface p-4">
           <%= form.label :about_image, "About画像", class: "admin-label" %>
           <% if @site_setting.about_image.attached? %>
-            <%= image_tag @site_setting.about_image.variant(resize_to_limit: [720, 960]), class: "aspect-[3/4] w-full rounded-xl object-cover", alt: "about image preview", loading: "lazy", decoding: "async" %>
+            <%= image_tag image_variant_or_original(@site_setting.about_image, resize_to_limit: [720, 960]), class: "aspect-[3/4] w-full rounded-xl object-cover", alt: "about image preview", loading: "lazy", decoding: "async" %>
           <% else %>
             <div class="flex aspect-[3/4] items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">画像未設定</div>
           <% end %>
@@ -58,7 +58,7 @@
         <div class="space-y-3 rounded-xl border border-line-soft bg-surface p-4">
           <%= form.label :logo_image, "ロゴ画像 (任意)", class: "admin-label" %>
           <% if @site_setting.logo_image.attached? %>
-            <%= image_tag @site_setting.logo_image.variant(resize_to_limit: [500, 180]), class: "h-20 w-full rounded-xl object-contain bg-white p-3", alt: "logo image preview", loading: "lazy", decoding: "async" %>
+            <%= image_tag image_variant_or_original(@site_setting.logo_image, resize_to_limit: [500, 180]), class: "h-20 w-full rounded-xl object-contain bg-white p-3", alt: "logo image preview", loading: "lazy", decoding: "async" %>
           <% else %>
             <div class="flex h-20 items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">ロゴ未設定</div>
           <% end %>

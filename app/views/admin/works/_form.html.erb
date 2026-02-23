@@ -36,7 +36,7 @@
     <% if work.thumbnail.attached? %>
       <div class="rounded-xl border border-line-soft bg-surface p-3">
         <p class="mb-3 text-xs text-subtle">現在のサムネイル</p>
-        <%= image_tag work.thumbnail.variant(resize_to_limit: [720, 405]), class: "aspect-video w-full max-w-md rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
+        <%= image_tag image_variant_or_original(work.thumbnail, resize_to_limit: [720, 405]), class: "aspect-video w-full max-w-md rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
       </div>
     <% end %>
     <%= form.file_field :thumbnail, accept: "image/*", class: "admin-file text-sm text-foreground file:mr-3 file:rounded-full file:border-0 file:bg-[#d4a5a0]/20 file:px-4 file:py-1.5 file:text-xs file:font-semibold file:text-foreground-strong hover:file:bg-[#d4a5a0]/30" %>

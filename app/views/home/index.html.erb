@@ -4,7 +4,7 @@
       <div class="flex min-h-16 flex-wrap items-center justify-between gap-y-2 py-2 sm:flex-nowrap">
         <a href="<%= root_path %>" class="shrink-0 text-foreground-strong">
           <% if @site_setting.logo_image.attached? %>
-            <%= image_tag @site_setting.logo_image.variant(resize_to_limit: [420, 96]), alt: "popcorn studio logo", class: "h-8 w-auto object-contain sm:h-9", loading: "lazy", decoding: "async" %>
+            <%= image_tag image_variant_or_original(@site_setting.logo_image, resize_to_limit: [420, 96]), alt: "popcorn studio logo", class: "h-8 w-auto object-contain sm:h-9", loading: "lazy", decoding: "async" %>
           <% else %>
             <span class="font-serif text-[1.55rem] leading-none tracking-[0.08em]">popcorn studio</span>
           <% end %>
@@ -173,7 +173,7 @@
           <div class="about-glow pointer-events-none absolute -inset-6 -z-10 rounded-[2rem]"></div>
           <div class="shadow-soft aspect-[3/4] overflow-hidden rounded-[1.8rem] border border-line-soft bg-surface-soft">
             <% if @site_setting.about_image.attached? %>
-              <%= image_tag @site_setting.about_image.variant(resize_to_limit: [900, 1200]), class: "h-full w-full object-cover", alt: "popcorn studio members portrait", loading: "lazy", decoding: "async" %>
+              <%= image_tag image_variant_or_original(@site_setting.about_image, resize_to_limit: [900, 1200]), class: "h-full w-full object-cover", alt: "popcorn studio members portrait", loading: "lazy", decoding: "async" %>
             <% else %>
               <%= image_tag "about-placeholder.svg", class: "h-full w-full object-cover", alt: "popcorn studio members portrait", loading: "lazy", decoding: "async" %>
             <% end %>

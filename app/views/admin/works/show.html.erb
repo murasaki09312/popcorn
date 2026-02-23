@@ -14,7 +14,7 @@
     <div class="space-y-3">
       <h2 class="text-[0.73rem] uppercase tracking-[0.12em] text-subtle">Thumbnail</h2>
       <% if @work.thumbnail.attached? %>
-        <%= image_tag @work.thumbnail.variant(resize_to_limit: [900, 506]), class: "aspect-video w-full rounded-xl object-cover", alt: "#{@work.title} thumbnail", loading: "lazy", decoding: "async" %>
+        <%= image_tag image_variant_or_original(@work.thumbnail, resize_to_limit: [900, 506]), class: "aspect-video w-full rounded-xl object-cover", alt: "#{@work.title} thumbnail", loading: "lazy", decoding: "async" %>
       <% else %>
         <div class="flex aspect-video items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">
           サムネイル未設定

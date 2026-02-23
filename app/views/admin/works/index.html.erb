@@ -23,7 +23,7 @@
           <tr class="align-top">
             <td class="px-4 py-3">
               <% if work.thumbnail.attached? %>
-                <%= image_tag work.thumbnail.variant(resize_to_limit: [240, 136]), class: "h-16 w-28 rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
+                <%= image_tag image_variant_or_original(work.thumbnail, resize_to_limit: [240, 136]), class: "h-16 w-28 rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
               <% else %>
                 <div class="flex h-16 w-28 items-center justify-center rounded-lg border border-dashed border-line-strong bg-surface-soft text-xs text-subtle">
                   No Image
