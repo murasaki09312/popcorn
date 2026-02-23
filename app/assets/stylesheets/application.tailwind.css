@@ -1,5 +1,128 @@
 @import "tailwindcss";
 
+:root {
+  --color-background: #f7f5f2;
+  --color-surface: #fcfbf9;
+  --color-surface-soft: #efe8e2;
+  --color-border: #e7e2dc;
+  --color-border-soft: #e6dfd8;
+  --color-border-strong: #d9cbc2;
+  --color-foreground: #4b423d;
+  --color-foreground-strong: #433833;
+  --color-muted: #7a6f68;
+  --color-subtle: #8c7e76;
+  --color-accent-rose-rgb: 212 165 160;
+  --color-accent-olive: #a6ba9d;
+  --color-accent-olive-strong: #95ab8c;
+  --color-focus: #9b8a81;
+  --color-overlay: rgb(58 49 43 / 0.45);
+  --shadow-card-rest: 0 1px 0 rgb(80 60 45 / 0.03);
+  --shadow-card-hover: 0 14px 24px rgb(77 60 49 / 0.1);
+  --shadow-soft: 0 10px 24px rgb(77 60 49 / 0.08);
+}
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-surface-soft {
+  background-color: var(--color-surface-soft);
+}
+
+.bg-overlay {
+  background-color: var(--color-overlay);
+}
+
+.text-foreground {
+  color: var(--color-foreground);
+}
+
+.text-foreground-strong {
+  color: var(--color-foreground-strong);
+}
+
+.text-muted {
+  color: var(--color-muted);
+}
+
+.text-subtle {
+  color: var(--color-subtle);
+}
+
+.border-line {
+  border-color: var(--color-border);
+}
+
+.border-line-soft {
+  border-color: var(--color-border-soft);
+}
+
+.border-line-strong {
+  border-color: var(--color-border-strong);
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card-rest);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.nav-link {
+  color: var(--color-muted);
+}
+
+.nav-link:hover {
+  color: var(--color-foreground);
+}
+
+.icon-link {
+  border: 1px solid var(--color-border-soft);
+  color: var(--color-subtle);
+}
+
+.icon-link:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-foreground);
+}
+
+.media-overlay {
+  background: linear-gradient(to top, rgb(var(--color-accent-rose-rgb) / 0.42), transparent 70%);
+  mix-blend-mode: multiply;
+}
+
+.about-glow {
+  background: radial-gradient(circle at center, rgb(var(--color-accent-rose-rgb) / 0.26), transparent 72%);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.btn-contact {
+  background-color: var(--color-accent-olive);
+}
+
+.btn-contact:hover {
+  background-color: var(--color-accent-olive-strong);
+}
+
+.min-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -14,4 +137,15 @@
 .animate-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    opacity: 1;
+    animation: none;
+  }
+
+  .card-lift {
+    transform: none !important;
+  }
 }
