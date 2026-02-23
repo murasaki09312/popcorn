@@ -1,9 +1,10 @@
 <div class="min-h-screen bg-background text-foreground">
   <header class="border-b border-line bg-background">
-    <div class="mx-auto flex h-16 w-full max-w-[1100px] items-center justify-between px-6 sm:px-8">
-      <p class="font-serif text-[1.55rem] leading-none tracking-[0.08em] text-foreground-strong">popcorn studio</p>
-      <nav aria-label="main navigation">
-        <ul class="flex items-center gap-1 text-[0.74rem] uppercase tracking-[0.15em] sm:gap-3">
+    <div class="mx-auto w-full max-w-[1100px] px-4 sm:px-8">
+      <div class="flex min-h-16 flex-wrap items-center justify-between gap-y-2 py-2 sm:flex-nowrap">
+        <p class="shrink-0 font-serif text-[1.55rem] leading-none tracking-[0.08em] text-foreground-strong">popcorn studio</p>
+        <nav aria-label="main navigation" class="w-full sm:w-auto">
+          <ul class="flex flex-wrap justify-end gap-1 text-[0.74rem] uppercase tracking-[0.15em] sm:gap-3">
           <li>
             <a href="#works" class="nav-link min-touch-target focus-ring inline-flex items-center px-2 transition">works</a>
           </li>
@@ -13,7 +14,7 @@
           <li>
             <a href="#contact" class="nav-link min-touch-target focus-ring inline-flex items-center px-2 transition">contact</a>
           </li>
-          <li>
+          <li class="hidden min-[420px]:block">
             <a
               href="<%= @instagram_url %>"
               target="_blank"
@@ -28,7 +29,7 @@
               </svg>
             </a>
           </li>
-          <li>
+          <li class="hidden min-[420px]:block">
             <a
               href="<%= @youtube_url %>"
               target="_blank"
@@ -42,8 +43,9 @@
               </svg>
             </a>
           </li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -61,7 +63,7 @@
         </p>
       </header>
 
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+      <div class="grid gap-5 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 lg:gap-10">
         <% @works.each_with_index do |work, index| %>
           <article>
             <button
