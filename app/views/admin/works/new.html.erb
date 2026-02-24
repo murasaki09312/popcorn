@@ -1,12 +1,13 @@
-<div class="min-h-screen bg-black text-zinc-100">
-  <div class="mx-auto max-w-3xl space-y-6 px-6 py-8">
-    <header class="border-b border-zinc-800 pb-4">
-      <p class="text-xs uppercase tracking-[0.2em] text-zinc-500">Admin</p>
-      <h1 class="mt-1 text-2xl font-bold tracking-wide">作品を新規作成</h1>
-    </header>
+<section class="space-y-5">
+  <header class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <p class="text-[0.7rem] uppercase tracking-[0.13em] text-muted">Admin CMS</p>
+      <h1 class="mt-1 font-serif text-[1.9rem] leading-none tracking-[0.05em] text-foreground-strong">作品を新規作成</h1>
+    </div>
+    <%= link_to "一覧へ戻る", admin_works_path, class: "admin-btn admin-btn-secondary focus-ring" %>
+  </header>
 
-    <section class="rounded-xl border border-zinc-800 bg-zinc-950 p-6">
-      <%= render "form", work: @work %>
-    </section>
-  </div>
-</div>
+  <section class="admin-card p-5 sm:p-6">
+    <%= render "form", work: @work %>
+  </section>
+</section>

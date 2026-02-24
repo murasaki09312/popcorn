@@ -1,6 +1,6 @@
-<%= form_with(model: [:admin, work], class: "space-y-6") do |form| %>
+<%= form_with(model: [:admin, work], class: "space-y-5") do |form| %>
   <% if work.errors.any? %>
-    <div class="rounded-lg border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-200">
+    <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
       <p class="font-semibold"><%= pluralize(work.errors.count, "error") %> prevented this work from being saved:</p>
       <ul class="mt-2 list-disc space-y-1 pl-5">
         <% work.errors.full_messages.each do |error| %>
@@ -10,40 +10,40 @@
     </div>
   <% end %>
 
-  <div class="space-y-2">
-    <%= form.label :title, class: "block text-sm font-medium text-zinc-200" %>
-    <%= form.text_field :title, class: "block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" %>
+  <div class="space-y-1.5">
+    <%= form.label :title, class: "admin-label" %>
+    <%= form.text_field :title, class: "admin-input", placeholder: "Neon Nights" %>
   </div>
 
-  <div class="space-y-2">
-    <%= form.label :video_url, class: "block text-sm font-medium text-zinc-200" %>
-    <%= form.url_field :video_url, class: "block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" %>
+  <div class="space-y-1.5">
+    <%= form.label :video_url, class: "admin-label" %>
+    <%= form.url_field :video_url, class: "admin-input", placeholder: "https://..." %>
   </div>
 
-  <div class="space-y-2">
-    <%= form.label :tags, class: "block text-sm font-medium text-zinc-200" %>
-    <%= form.text_field :tags, placeholder: "#animation #trackmake #soundeffect", class: "block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" %>
-    <p class="text-xs text-zinc-500">半角スペース区切りで入力できます。</p>
+  <div class="space-y-1.5">
+    <%= form.label :tags, class: "admin-label" %>
+    <%= form.text_field :tags, class: "admin-input", placeholder: "#animation #trackmake #soundeffect" %>
+    <p class="text-xs text-subtle">半角スペース区切りで入力できます。</p>
   </div>
 
-  <div class="space-y-2">
-    <%= form.label :description, class: "block text-sm font-medium text-zinc-200" %>
-    <%= form.text_area :description, rows: 6, class: "block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" %>
+  <div class="space-y-1.5">
+    <%= form.label :description, class: "admin-label" %>
+    <%= form.text_area :description, class: "admin-textarea" %>
   </div>
 
   <div class="space-y-3">
-    <%= form.label :thumbnail, class: "block text-sm font-medium text-zinc-200" %>
+    <%= form.label :thumbnail, class: "admin-label" %>
     <% if work.thumbnail.attached? %>
-      <div class="rounded-lg border border-zinc-700 bg-zinc-900 p-3">
-        <p class="mb-3 text-xs text-zinc-400">現在のサムネイル</p>
-        <%= image_tag work.thumbnail, class: "aspect-video w-full rounded-md object-cover md:max-w-sm" %>
+      <div class="rounded-xl border border-line-soft bg-surface p-3">
+        <p class="mb-3 text-xs text-subtle">現在のサムネイル</p>
+        <%= image_tag image_variant_or_original(work.thumbnail, resize_to_limit: [720, 405]), class: "aspect-video w-full max-w-md rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
       </div>
     <% end %>
-    <%= form.file_field :thumbnail, accept: "image/*", class: "block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-100 file:px-3 file:py-2 file:text-sm file:font-medium file:text-zinc-900 hover:file:bg-white" %>
+    <%= form.file_field :thumbnail, accept: "image/*", class: "admin-file text-sm text-foreground file:mr-3 file:rounded-full file:border-0 file:bg-[#d4a5a0]/20 file:px-4 file:py-1.5 file:text-xs file:font-semibold file:text-foreground-strong hover:file:bg-[#d4a5a0]/30" %>
   </div>
 
-  <div class="flex flex-wrap items-center gap-3">
-    <%= form.submit class: "inline-flex items-center rounded-md bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-white" %>
-    <%= link_to "キャンセル", admin_works_path, class: "inline-flex items-center rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800" %>
+  <div class="flex flex-wrap gap-3 pt-2">
+    <%= form.submit class: "admin-btn admin-btn-primary focus-ring" %>
+    <%= link_to "キャンセル", admin_works_path, class: "admin-btn admin-btn-secondary focus-ring" %>
   </div>
 <% end %>

@@ -63,6 +63,107 @@
   .btn-contact:hover {
     background-color: var(--color-accent-olive-strong);
   }
+
+  .admin-sidebar-link {
+    display: flex;
+    align-items: center;
+    border-radius: 0.9rem;
+    padding: 0.66rem 0.85rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: #e7dfd8;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .admin-sidebar-link:hover {
+    background-color: rgb(255 255 255 / 0.09);
+    color: #fff;
+  }
+
+  .admin-sidebar-link.is-active {
+    background-color: rgb(255 255 255 / 0.16);
+    color: #fff;
+  }
+
+  .admin-card {
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-card-rest);
+  }
+
+  .admin-label {
+    color: var(--color-foreground);
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .admin-input,
+  .admin-textarea,
+  .admin-file {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.85rem;
+    background-color: #fff;
+    color: var(--color-foreground-strong);
+    display: block;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    width: 100%;
+  }
+
+  .admin-input,
+  .admin-file {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .admin-textarea {
+    min-height: 9rem;
+    padding: 0.7rem 0.85rem;
+    resize: vertical;
+  }
+
+  .admin-input:focus,
+  .admin-textarea:focus,
+  .admin-file:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px rgb(155 138 129 / 0.2);
+    outline: none;
+  }
+
+  .admin-btn {
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.62rem 1.05rem;
+    transition: filter 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .admin-btn:hover {
+    filter: brightness(0.97);
+  }
+
+  .admin-btn-primary {
+    background-color: var(--color-accent-olive);
+    color: #fff;
+  }
+
+  .admin-btn-secondary {
+    background-color: #fff;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-foreground);
+  }
+
+  .admin-btn-danger {
+    background-color: rgb(212 165 160 / 0.15);
+    border: 1px solid rgb(212 165 160 / 0.45);
+    color: #8b504b;
+  }
 }
 
 @layer utilities {

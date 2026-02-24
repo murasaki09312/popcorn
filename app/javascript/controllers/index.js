@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AdminSidebarController from "./admin_sidebar_controller"
+application.register("admin-sidebar", AdminSidebarController)
+
 import ToggleController from "./toggle_controller"
 application.register("toggle", ToggleController)
 

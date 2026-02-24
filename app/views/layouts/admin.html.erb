@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title><%= content_for(:title) || "Popcorn Admin" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Popcorn">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body class="bg-background text-foreground">
+    <% works_active = controller_path.start_with?("admin/works") %>
+    <% settings_active = controller_path == "admin/site_settings" %>
+
+    <div
+      class="min-h-screen md:grid md:grid-cols-[260px_minmax(0,1fr)]"
+      data-controller="admin-sidebar"
+      data-action="keydown.esc@window->admin-sidebar#closeWithEscape"
+    >
+      <aside
+        id="admin-sidebar"
+        class="fixed inset-y-0 left-0 z-40 w-[260px] -translate-x-full border-r border-line-soft bg-stone-800 px-4 py-5 text-stone-100 transition-transform duration-300 ease-out md:static md:translate-x-0"
+        data-admin-sidebar-target="sidebar"
+        aria-hidden="true"
+      >
+        <div class="flex items-center justify-between gap-2 border-b border-stone-700 pb-4">
+          <div>
+            <p class="font-serif text-[1.15rem] tracking-[0.06em] text-stone-100">popcorn admin</p>
+            <p class="mt-1 text-[0.68rem] uppercase tracking-[0.14em] text-stone-400">dashboard</p>
+          </div>
+          <button
+            type="button"
+            class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-600 text-stone-200 transition hover:border-stone-500 hover:text-white md:hidden"
+            data-action="admin-sidebar#close"
+            aria-label="サイドバーを閉じる"
+          >
+            ×
+          </button>
+        </div>
+
+        <nav class="mt-4 space-y-2" aria-label="admin navigation">
+          <%= link_to "Works管理", admin_works_path, class: "admin-sidebar-link #{works_active ? "is-active" : ""}" %>
+          <%= link_to "サイト設定", edit_admin_site_setting_path, class: "admin-sidebar-link #{settings_active ? "is-active" : ""}" %>
+          <%= link_to "公開サイトを見る", root_path, class: "admin-sidebar-link" %>
+        </nav>
+
+        <div class="mt-6 border-t border-stone-700 pt-4">
+          <%= link_to "ログアウト", session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "admin-sidebar-link text-rose-200 hover:text-rose-100" %>
+        </div>
+      </aside>
+
+      <div
+        class="fixed inset-0 z-30 hidden bg-black/40 md:hidden"
+        data-admin-sidebar-target="backdrop"
+        data-action="click->admin-sidebar#close"
+      ></div>
+
+      <div class="min-h-screen md:col-start-2">
+        <header class="sticky top-0 z-20 border-b border-line-soft bg-background/95 px-4 py-3 backdrop-blur md:hidden">
+          <div class="flex items-center justify-between gap-3">
+            <p class="font-serif text-[1.1rem] tracking-[0.06em] text-foreground-strong">popcorn admin</p>
+            <button
+              type="button"
+              class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface text-foreground transition hover:bg-surface-soft"
+              data-admin-sidebar-target="trigger"
+              data-action="admin-sidebar#toggle"
+              aria-controls="admin-sidebar"
+              aria-expanded="false"
+              aria-label="メニューを開く"
+            >
+              ☰
+            </button>
+          </div>
+        </header>
+
+        <main class="space-y-5 p-4 sm:p-6 lg:p-8">
+          <% flash.each do |type, message| %>
+            <% next if message.blank? %>
+            <% tone = type.to_s == "notice" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-rose-200 bg-rose-50 text-rose-700" %>
+            <p class="rounded-xl border px-4 py-2.5 text-sm <%= tone %>"><%= message %></p>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

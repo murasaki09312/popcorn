@@ -1,60 +1,52 @@
-<div class="min-h-screen bg-black text-zinc-100">
-  <div class="mx-auto max-w-6xl space-y-8 px-6 py-8">
-    <header class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-4">
-      <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-zinc-500">Admin</p>
-        <h1 class="mt-1 text-2xl font-bold tracking-wide">Works</h1>
-      </div>
-      <div class="flex items-center gap-3">
-        <%= link_to "公開トップへ", root_path, class: "inline-flex items-center rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800" %>
-        <%= link_to "新規作成", new_admin_work_path, class: "inline-flex items-center rounded-md bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-900 transition hover:bg-white" %>
-      </div>
-    </header>
+<section class="space-y-5">
+  <header class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <p class="text-[0.7rem] uppercase tracking-[0.13em] text-muted">Admin CMS</p>
+      <h1 class="mt-1 font-serif text-[2rem] leading-none tracking-[0.05em] text-foreground-strong">Works</h1>
+    </div>
+    <%= link_to "新規作成", new_admin_work_path, class: "admin-btn admin-btn-primary focus-ring" %>
+  </header>
 
-    <% if notice.present? %>
-      <p class="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-200"><%= notice %></p>
-    <% end %>
-
-    <section class="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-950">
-      <table class="min-w-full divide-y divide-zinc-800 text-sm">
-        <thead class="bg-zinc-900/80 text-left text-xs uppercase tracking-wide text-zinc-400">
-          <tr>
-            <th class="px-4 py-3">Thumbnail</th>
-            <th class="px-4 py-3">Title</th>
-            <th class="px-4 py-3">Tags</th>
-            <th class="px-4 py-3">Updated</th>
-            <th class="px-4 py-3 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-zinc-800">
-          <% @works.each do |work| %>
-            <tr class="align-top">
-              <td class="px-4 py-3">
-                <% if work.thumbnail.attached? %>
-                  <%= image_tag work.thumbnail, class: "h-16 w-28 rounded-md object-cover" %>
-                <% else %>
-                  <div class="flex h-16 w-28 items-center justify-center rounded-md border border-dashed border-zinc-700 bg-zinc-900 text-xs text-zinc-500">
-                    No Image
-                  </div>
-                <% end %>
-              </td>
-              <td class="px-4 py-3 font-medium text-zinc-100"><%= work.title %></td>
-              <td class="px-4 py-3 text-zinc-400"><%= work.tags.presence || "-" %></td>
-              <td class="px-4 py-3 text-zinc-400"><%= l(work.updated_at, format: :short) %></td>
-              <td class="px-4 py-3">
-                <div class="flex justify-end gap-2">
-                  <%= link_to "詳細", admin_work_path(work), class: "rounded-md border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-200 transition hover:bg-zinc-800" %>
-                  <%= link_to "編集", edit_admin_work_path(work), class: "rounded-md border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-200 transition hover:bg-zinc-800" %>
-                  <%= link_to "削除", admin_work_path(work), data: { turbo_method: :delete, turbo_confirm: "この作品を削除しますか？" }, class: "rounded-md border border-red-600/60 px-3 py-1.5 text-xs font-medium text-red-200 transition hover:bg-red-600/10" %>
+  <section class="admin-card overflow-x-auto">
+    <table class="min-w-full divide-y border-line-soft text-sm">
+      <thead class="bg-surface-soft text-left text-[0.7rem] uppercase tracking-[0.09em] text-subtle">
+        <tr>
+          <th class="px-4 py-3">Thumbnail</th>
+          <th class="px-4 py-3">Title</th>
+          <th class="px-4 py-3">Tags</th>
+          <th class="px-4 py-3">Updated</th>
+          <th class="px-4 py-3 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y border-line-soft bg-white">
+        <% @works.each do |work| %>
+          <tr class="align-top">
+            <td class="px-4 py-3">
+              <% if work.thumbnail.attached? %>
+                <%= image_tag image_variant_or_original(work.thumbnail, resize_to_limit: [240, 136]), class: "h-16 w-28 rounded-lg object-cover", alt: "#{work.title} thumbnail", loading: "lazy", decoding: "async" %>
+              <% else %>
+                <div class="flex h-16 w-28 items-center justify-center rounded-lg border border-dashed border-line-strong bg-surface-soft text-xs text-subtle">
+                  No Image
                 </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <% if @works.empty? %>
-        <p class="px-4 py-8 text-center text-sm text-zinc-500">作品がまだ登録されていません。新規作成から追加してください。</p>
-      <% end %>
-    </section>
-  </div>
-</div>
+              <% end %>
+            </td>
+            <td class="px-4 py-3 text-foreground-strong"><%= work.title %></td>
+            <td class="px-4 py-3 text-muted"><%= work.tags.presence || "-" %></td>
+            <td class="px-4 py-3 text-muted"><%= l(work.updated_at, format: :short) %></td>
+            <td class="px-4 py-3">
+              <div class="flex justify-end gap-2">
+                <%= link_to "詳細", admin_work_path(work), class: "admin-btn admin-btn-secondary focus-ring !rounded-xl !px-3 !py-1.5 !text-[0.72rem]" %>
+                <%= link_to "編集", edit_admin_work_path(work), class: "admin-btn admin-btn-secondary focus-ring !rounded-xl !px-3 !py-1.5 !text-[0.72rem]" %>
+                <%= link_to "削除", admin_work_path(work), data: { turbo_method: :delete, turbo_confirm: "この作品を削除しますか？" }, class: "admin-btn admin-btn-danger focus-ring !rounded-xl !px-3 !py-1.5 !text-[0.72rem]" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @works.empty? %>
+      <p class="px-4 py-8 text-center text-sm text-subtle">作品がまだ登録されていません。新規作成から追加してください。</p>
+    <% end %>
+  </section>
+</section>

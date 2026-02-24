@@ -24,3 +24,11 @@ if admin.new_record?
 elsif ENV.fetch("ADMIN_RESET_PASSWORD_ON_SEED", "0") == "1"
   admin.update!(password: admin_password, password_confirmation: admin_password)
 end
+
+site_setting = SiteSetting.instance
+site_setting.about_text = SiteSetting::DEFAULT_ABOUT_TEXT if site_setting.about_text.blank?
+site_setting.contact_text = SiteSetting::DEFAULT_CONTACT_TEXT if site_setting.contact_text.blank?
+site_setting.instagram_url = ENV["SITE_INSTAGRAM_URL"].presence || site_setting.instagram_url
+site_setting.youtube_url = ENV["SITE_YOUTUBE_URL"].presence || site_setting.youtube_url
+site_setting.line_url = ENV["SITE_LINE_URL"].presence || site_setting.line_url
+site_setting.save!

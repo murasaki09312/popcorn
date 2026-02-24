@@ -35,4 +35,24 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "/rails/active_storage/blobs/redirect/"
     assert_not_includes response.body, "/rails/active_storage/representations/redirect/"
   end
+
+  test "renders site settings values on top page" do
+    setting = SiteSetting.instance
+    setting.update!(
+      about_text: "about line one\nabout line two",
+      contact_text: "LINEからご相談ください。",
+      instagram_url: "https://www.instagram.com/popcorn",
+      youtube_url: "https://www.youtube.com/@popcorn",
+      line_url: "https://line.me/ti/p/example"
+    )
+
+    get root_url
+
+    assert_response :success
+    assert_includes response.body, "about line one"
+    assert_includes response.body, "LINEからご相談ください。"
+    assert_includes response.body, "https://www.instagram.com/popcorn"
+    assert_includes response.body, "https://www.youtube.com/@popcorn"
+    assert_includes response.body, "https://line.me/ti/p/example"
+  end
 end

@@ -1,0 +1,74 @@
+<section class="space-y-5">
+  <header>
+    <p class="text-[0.7rem] uppercase tracking-[0.13em] text-muted">Admin CMS</p>
+    <h1 class="mt-1 font-serif text-[1.9rem] leading-none tracking-[0.05em] text-foreground-strong">サイト設定</h1>
+    <p class="mt-2 text-sm text-subtle">トップページの文言、画像、SNSリンクをここから更新できます。</p>
+  </header>
+
+  <section class="admin-card p-5 sm:p-6">
+    <%= form_with model: @site_setting, url: admin_site_setting_path, method: :patch, class: "space-y-6" do |form| %>
+      <% if @site_setting.errors.any? %>
+        <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+          <p class="font-semibold"><%= pluralize(@site_setting.errors.count, "error") %> prevented settings from being saved:</p>
+          <ul class="mt-2 list-disc space-y-1 pl-5">
+            <% @site_setting.errors.full_messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-1.5">
+        <%= form.label :about_text, "About本文", class: "admin-label" %>
+        <%= form.text_area :about_text, class: "admin-textarea", rows: 5 %>
+      </div>
+
+      <div class="space-y-1.5">
+        <%= form.label :contact_text, "Contact補助文", class: "admin-label" %>
+        <%= form.text_field :contact_text, class: "admin-input" %>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-1.5">
+          <%= form.label :instagram_url, class: "admin-label" %>
+          <%= form.url_field :instagram_url, class: "admin-input", placeholder: "https://instagram.com/..." %>
+        </div>
+        <div class="space-y-1.5">
+          <%= form.label :youtube_url, class: "admin-label" %>
+          <%= form.url_field :youtube_url, class: "admin-input", placeholder: "https://youtube.com/..." %>
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <%= form.label :line_url, class: "admin-label" %>
+        <%= form.url_field :line_url, class: "admin-input", placeholder: "https://line.me/..." %>
+      </div>
+
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="space-y-3 rounded-xl border border-line-soft bg-surface p-4">
+          <%= form.label :about_image, "About画像", class: "admin-label" %>
+          <% if @site_setting.about_image.attached? %>
+            <%= image_tag image_variant_or_original(@site_setting.about_image, resize_to_limit: [720, 960]), class: "aspect-[3/4] w-full rounded-xl object-cover", alt: "about image preview", loading: "lazy", decoding: "async" %>
+          <% else %>
+            <div class="flex aspect-[3/4] items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">画像未設定</div>
+          <% end %>
+          <%= form.file_field :about_image, accept: "image/*", class: "admin-file text-sm text-foreground file:mr-3 file:rounded-full file:border-0 file:bg-[#d4a5a0]/20 file:px-4 file:py-1.5 file:text-xs file:font-semibold file:text-foreground-strong hover:file:bg-[#d4a5a0]/30" %>
+        </div>
+
+        <div class="space-y-3 rounded-xl border border-line-soft bg-surface p-4">
+          <%= form.label :logo_image, "ロゴ画像 (任意)", class: "admin-label" %>
+          <% if @site_setting.logo_image.attached? %>
+            <%= image_tag image_variant_or_original(@site_setting.logo_image, resize_to_limit: [500, 180]), class: "h-20 w-full rounded-xl object-contain bg-white p-3", alt: "logo image preview", loading: "lazy", decoding: "async" %>
+          <% else %>
+            <div class="flex h-20 items-center justify-center rounded-xl border border-dashed border-line-strong bg-surface-soft text-sm text-subtle">ロゴ未設定</div>
+          <% end %>
+          <%= form.file_field :logo_image, accept: "image/*", class: "admin-file text-sm text-foreground file:mr-3 file:rounded-full file:border-0 file:bg-[#d4a5a0]/20 file:px-4 file:py-1.5 file:text-xs file:font-semibold file:text-foreground-strong hover:file:bg-[#d4a5a0]/30" %>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 pt-1">
+        <%= form.submit "設定を保存", class: "admin-btn admin-btn-primary focus-ring" %>
+      </div>
+    <% end %>
+  </section>
+</section>
